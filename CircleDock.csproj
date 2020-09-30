@@ -115,7 +115,7 @@
     <None Include="Resources\MainFormTrayIcon.Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CircleDockIcon.ico" />
+    <None Include="Images\CircleDockIcon.ico" />
   </ItemGroup>
   <Target Name="AfterBuild">
     <MakeDir Directories="$(TargetDir)\System" />
