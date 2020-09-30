@@ -1,4 +1,6 @@
-﻿namespace CircleDock
+﻿using System;
+
+namespace CircleDock
 {
     partial class MainForm
     {
@@ -32,6 +34,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainFormContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainFormTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.MainFormContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -39,7 +42,7 @@
             // MainFormContextMenuStrip
             // 
             this.MainFormContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quitToolStripMenuItem});
+            this.quitToolStripMenuItem, this.hideToolStripMenuItem});
             this.MainFormContextMenuStrip.Name = LanguageWords.General.CircleDockName;
             this.MainFormContextMenuStrip.Size = new System.Drawing.Size(98, 26);
             this.MainFormContextMenuStrip.Text = LanguageWords.General.CircleDockName;
@@ -50,6 +53,13 @@
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.quitToolStripMenuItem.Text = LanguageWords.MainContextMenu.QuitWord;
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // hideToolStripMenuItem
+            // 
+            this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.HideWord;
+            this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
             // 
             // MainFormTrayIcon
             // 
@@ -75,6 +85,7 @@
 
         private System.Windows.Forms.ContextMenuStrip MainFormContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon MainFormTrayIcon;
     }
 }

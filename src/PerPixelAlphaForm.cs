@@ -441,7 +441,14 @@ namespace PerPixelAlphaForms
 
         #endregion
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 
     // class that exposes needed win32 gdi functions.
@@ -522,5 +529,7 @@ namespace PerPixelAlphaForms
 
         [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
         public static extern Bool DeleteObject(IntPtr hObject);
+
+
     }
 }

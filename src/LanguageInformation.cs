@@ -27,6 +27,7 @@ namespace LanguageInformation
         public String WebsiteWord;
         public String SettingsWord;
         public String HideWord;
+        public String ShowWord;
         public String QuitWord;
         public String RemoveWord;
         public String AddWord;

@@ -75,6 +75,7 @@ namespace LanguageLoader
         private void LoadMainContextMenu()
         {
             MainContextMenu.HideWord = GetEntry("MainContextMenu", "HideWord");
+            MainContextMenu.ShowWord = GetEntry("MainContextMenu", "ShowWord");
             MainContextMenu.QuitWord = GetEntry("MainContextMenu", "QuitWord");
             MainContextMenu.SettingsWord = GetEntry("MainContextMenu", "SettingsWord");
             MainContextMenu.WebsiteWord = GetEntry("MainContextMenu", "WebsiteWord");

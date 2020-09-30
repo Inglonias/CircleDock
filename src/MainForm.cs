@@ -29,6 +29,8 @@ namespace CircleDock
         private Point[] CalculatedPoints;
         private Size[] NewDockItemSizes;
 
+        private Boolean isShown = true;
+
         #endregion
 
         #region Constructor and Initialization
@@ -464,6 +466,34 @@ namespace CircleDock
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isShown)
+            {
+                this.Hide();
+                BackgroundObject.Hide();
+                CentreObject.Hide();
+                foreach (DockItemObject o in MainDockObjects)
+                {
+                    o.Hide();
+                }
+                isShown = false;
+                this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.ShowWord;
+            }
+            else
+            {
+                this.Show();
+                BackgroundObject.Show();
+                CentreObject.Show();
+                foreach (DockItemObject o in MainDockObjects)
+                {
+                    o.Show();
+                }
+                isShown = true;
+                this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.HideWord;
+            }
         }
 
         /// <summary> 
