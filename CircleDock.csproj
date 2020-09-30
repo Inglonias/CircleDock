@@ -112,9 +112,6 @@
     <_CopyItems Include="$(ProjectDir)Config\**\*.*" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MainFormTrayIcon.Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Images\CircleDockIcon.ico" />
   </ItemGroup>
   <Target Name="AfterBuild">
