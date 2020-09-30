@@ -73,6 +73,29 @@
     </Compile>
     <Compile Include="SettingsInformation.cs" />
     <Compile Include="SettingsLoader.cs" />
+    <Compile Include="src\DockItemSettingsLoader.cs" />
+    <Compile Include="src\DockItemsInformation.cs" />
+    <Compile Include="src\FileOps.cs" />
+    <Compile Include="src\ImageOperations.cs" />
+    <Compile Include="src\LanguageInformation.cs" />
+    <Compile Include="src\LanguageLoader.cs" />
+    <Compile Include="src\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\PerPixelAlphaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Program.cs" />
+    <Compile Include="src\SettingsInformation.cs" />
+    <Compile Include="src\SettingsLoader.cs" />
+    <Compile Include="src\TransparentObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\User32API.cs" />
+    <Compile Include="src\WindowMessageConstants.cs" />
     <Compile Include="TransparentObject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,15 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CircleDockIconCentreImage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MissingIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="sapphire_ring.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\CircleDockIconCentreImage.png" />
