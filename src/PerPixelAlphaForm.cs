@@ -140,7 +140,7 @@ namespace PerPixelAlphaForms
         /// <summary> 
         /// Access to the language words used.
         /// </summary>
-        public LanguageLoader.LanguageLoader Language = null;
+        public LanguageLoader.LanguageLoader Language;
 
         /// <summary> 
         /// Access to the general dock settings with read and write capabilities. Not for individual dock item settings!

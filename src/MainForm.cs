@@ -33,6 +33,8 @@ namespace CircleDock
 
         private IKeyboardMouseEvents mouseHook;
 
+        private const String ROOT_LEVEL = "0-";
+
         #endregion
 
         #region Constructor and Initialization
@@ -49,18 +51,18 @@ namespace CircleDock
             InitializeBackgroundObject();
             InitializeMouseHook();
             InitializeCentreObject();
-            ShowLevel("0-");
+            ShowLevel(ROOT_LEVEL);
         }
 
         private void InitializeMouseHook()
         {
             mouseHook = Hook.GlobalEvents();
-            mouseHook.MouseClick += DoTheThing;
+            mouseHook.MouseClick += MoveToTarget;
         }
 
-        private void DoTheThing(object sender, MouseEventArgs e)
+        private void MoveToTarget(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Middle)
+            if (e.Button == MouseButtons.Middle && !isShown)
             {
                 Size backgroundSize = BackgroundObject.Size;
                 BackgroundObject.Location = new Point(e.Location.X - backgroundSize.Width / 2, e.Location.Y - backgroundSize.Height / 2);
@@ -68,6 +70,7 @@ namespace CircleDock
                 CentreObject.Location = new Point(e.Location.X - centerSize.Width / 2, e.Location.Y - centerSize.Height / 2);
                 CalculatedPoints = CalculateDockItemPositions(NewDockItemSizes);
                 SetDockItemPositions(CalculatedPoints);
+                ShowForm();
             }
         }
 
@@ -154,7 +157,11 @@ namespace CircleDock
 
         public void ShowLevelUp()
         {
-            if (CurrentLevelShown != null && CurrentLevelShown != "0-" && CurrentLevelShown.Length > 0)
+            if (CurrentLevelShown == ROOT_LEVEL)
+            {
+                HideForm();
+            }
+            if (CurrentLevelShown != null && CurrentLevelShown != ROOT_LEVEL && CurrentLevelShown.Length > 0)
             {
                 int LastDash = -1;
                 String NewLevel = CurrentLevelShown;
@@ -233,7 +240,7 @@ namespace CircleDock
                 return;
 
             Bitmap NewBitmap;
-            if (Level == "0-")
+            if (Level == ROOT_LEVEL)
             {
                 try
                 {
@@ -495,28 +502,38 @@ namespace CircleDock
         {
             if (isShown)
             {
-                this.Hide();
-                BackgroundObject.Hide();
-                CentreObject.Hide();
-                foreach (DockItemObject o in MainDockObjects)
-                {
-                    o.Hide();
-                }
-                isShown = false;
-                this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.ShowWord;
+                HideForm();
             }
             else
             {
-                this.Show();
-                BackgroundObject.Show();
-                CentreObject.Show();
-                foreach (DockItemObject o in MainDockObjects)
-                {
-                    o.Show();
-                }
-                isShown = true;
-                this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.HideWord;
+                ShowForm();
             }
+        }
+
+        private void HideForm()
+        {
+            this.Hide();
+            BackgroundObject.Hide();
+            CentreObject.Hide();
+            foreach (DockItemObject o in MainDockObjects)
+            {
+                o.Hide();
+            }
+            isShown = false;
+            this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.ShowWord;
+        }
+
+        private void ShowForm()
+        {
+            this.Show();
+            BackgroundObject.Show();
+            CentreObject.Show();
+            foreach (DockItemObject o in MainDockObjects)
+            {
+                o.Show();
+            }
+            isShown = true;
+            this.hideToolStripMenuItem.Text = LanguageWords.MainContextMenu.HideWord;
         }
 
         /// <summary> 
