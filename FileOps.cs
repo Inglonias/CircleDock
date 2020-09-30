@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
-
-using Orbit.Utilities;
-using Win32.Shell32;
-using CircleDock;
 
 namespace FileOps
 {
@@ -201,26 +193,7 @@ namespace FileOps
             }
             catch (Exception)
             {
-                try
-                {
-                    // if failed, try using the Win32 API function
-                    Win32.Shell32.ShellExecuteInfo ShExInfo = new Win32.Shell32.ShellExecuteInfo();
-                    ShExInfo.fMask = 0x0000000c;
-                    //ShExInfo.hwnd=(int)this.Handle;
-                    ShExInfo.hwnd = (int)System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
-                    ShExInfo.lpFile = ProcInfo.FileName;
-                    ShExInfo.lpDirectory = ProcInfo.WorkingDirectory;
-                    ShExInfo.lpParameters = ProcInfo.Arguments;
-                    ShExInfo.lpVerb = "open";
-                    ShExInfo.nShow = 1;
-                    ShExInfo.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(ShExInfo);
-                    Win32.Shell32.Shell32API.ShellExecuteEx(ShExInfo);
-                }
-                catch (Exception)
-                {
-                    ProcInfo = null;
-                    MessageBox.Show("File/Path is invalid.", "Circle Dock");
-                }
+                
             }
             ProcInfo = null;
         }
@@ -237,20 +210,21 @@ namespace FileOps
             {
                 Name = "Invalid/Missing";
                 Description = "Invalid/Missing";
-                RepresentativeImage = CircleDock.ImageResources.MissingIcon;
+                RepresentativeImage = CircleDock.Properties.ImageResources.MissingIcon;
                 return;
             }
 
             try
             {
+                FileInfo info = new FileInfo(Path);
                 // get extra information on this file that the System.IO.FileInfo doesn't give us
-                Win32.Shell32.SHFileInfo FileInfo = new Win32.Shell32.SHFileInfo();
-                Win32.Shell32.Shell32API.SHGetFileInfo(Path, 0, ref FileInfo, (uint)System.Runtime.InteropServices.Marshal.SizeOf(FileInfo), Win32.Shell32.ShellGetFileInfoFlags.DisplayName | Win32.Shell32.ShellGetFileInfoFlags.FileTypeName | Win32.Shell32.ShellGetFileInfoFlags.LargeIcon | Win32.Shell32.ShellGetFileInfoFlags.Icon);
+                //Win32.Shell32.SHFileInfo FileInfo = new Win32.Shell32.SHFileInfo();
+                //Win32.Shell32.Shell32API.SHGetFileInfo(Path, 0, ref FileInfo, (uint)System.Runtime.InteropServices.Marshal.SizeOf(FileInfo), Win32.Shell32.ShellGetFileInfoFlags.DisplayName | Win32.Shell32.ShellGetFileInfoFlags.FileTypeName | Win32.Shell32.ShellGetFileInfoFlags.LargeIcon | Win32.Shell32.ShellGetFileInfoFlags.Icon);
 
                 // set the item name to the file name
-                Name = FileInfo.szDisplayName;
+                Name = info.Name;
                 // set the item description to the file type
-                Description = FileInfo.szTypeName;
+                Description = info.Extension;
 
                 //RepresentativeImage = GetPreviewThumb(Path);
                 RepresentativeImage = GetThumbnail(Path);
@@ -260,13 +234,13 @@ namespace FileOps
                     try
                     {
                         // getting the handle to the icon from the SHFileInfo structure
-                        using (Icon IconO = Icon.FromHandle(FileInfo.hIcon))
+                        using (Icon IconO = Icon.ExtractAssociatedIcon(Path))
                         {
                             // create the biggest possible icon
                             using (Icon icon = new Icon(IconO, 256, 256))
                             {
                                 // convert to bitmap
-                                using (Bitmap IconPic = Orbit.Utilities.ImageHelper.GetBitmapFromIcon(icon))
+                                using (Bitmap IconPic = icon.ToBitmap())
                                 {
                                     Bitmap returnBitmap = new Bitmap(IconPic);
                                     RepresentativeImage = returnBitmap;
@@ -276,18 +250,18 @@ namespace FileOps
                     }
                     catch (Exception)
                     {
-                        RepresentativeImage = ImageResources.MissingIcon;
+                        RepresentativeImage = CircleDock.Properties.ImageResources.MissingIcon;
                     }
                 }
                     
                 // don't forget to destroy the handle to the other icon
-                Win32.User32.User32API.DestroyIcon(FileInfo.hIcon);
+                //Win32.User32.User32API.DestroyIcon(FileInfo.hIcon);
             }
             catch (Exception)
             {
                 Name = "Invalid/Missing";
                 Description = "Invalid/Missing";
-                RepresentativeImage = CircleDock.ImageResources.MissingIcon;
+                RepresentativeImage = CircleDock.Properties.ImageResources.MissingIcon;
             }
         }
     }

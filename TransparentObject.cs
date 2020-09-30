@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Text;
 using CircleDock;
-using Constants;
-using DockItemsInformation;
-using PerPixelAlphaForms;
-using LanguageLoader;
-using SettingsLoader;
-using DockItemSettingsLoader;
-
-using Orbit.Utilities;
-using Win32.Shell32;
-using FileOps;
 
 namespace BaseDockObjects
 {
@@ -167,7 +154,7 @@ namespace BaseDockObjects
             }
             catch (Exception)
             {
-                tempBitmap = new Bitmap(ImageResources.sapphire_ring);
+                tempBitmap = new Bitmap(CircleDock.Properties.ImageResources.sapphire_ring);
             }
 
             SetBitmapManaged(ref tempBitmap);
@@ -448,7 +435,7 @@ namespace BaseDockObjects
             }
             catch (Exception)
             {
-                tempBitmap = new Bitmap(ImageResources.MissingIcon);
+                tempBitmap = new Bitmap(CircleDock.Properties.ImageResources.MissingIcon);
             }
 
             SetBitmapManaged(ref tempBitmap);
@@ -735,7 +722,7 @@ namespace BaseDockObjects
             }
             catch (Exception)
             {
-                tempBitmap = new Bitmap(ImageResources.CircleDockIconCentreImage);
+                tempBitmap = new Bitmap(CircleDock.Properties.ImageResources.CircleDockIconCentreImage);
             }
 
             SetBitmapManaged(ref tempBitmap);

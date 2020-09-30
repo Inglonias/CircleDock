@@ -1,26 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.Resources;
 using System.Windows.Forms;
-using System.Threading;
-
-using DockItemsInformation;
-using AMS.Profile;
 using BaseDockObjects;
-using PerPixelAlphaForms;
-
-using LanguageLoader;
-using SettingsLoader;
-using DockItemSettingsLoader;
-using Pinvoke;
-
-using Orbit.Utilities;
-using Win32.Shell32;
-using FileOps;
 
 
 namespace CircleDock
@@ -234,7 +217,7 @@ namespace CircleDock
                 }
                 catch (Exception)
                 {
-                    NewBitmap = new Bitmap(ImageResources.CircleDockIconCentreImage);
+                    NewBitmap = new Bitmap(CircleDock.Properties.ImageResources.CircleDockIconCentreImage);
                 }
             }
             else
@@ -261,12 +244,12 @@ namespace CircleDock
                     }
                     catch (Exception)
                     {
-                        NewBitmap = new Bitmap(ImageResources.CircleDockIconCentreImage);
+                        NewBitmap = new Bitmap(CircleDock.Properties.ImageResources.CircleDockIconCentreImage);
                     }
                 }
                 else
                 {
-                    NewBitmap = new Bitmap(ImageResources.CircleDockIconCentreImage);
+                    NewBitmap = new Bitmap(CircleDock.Properties.ImageResources.CircleDockIconCentreImage);
                 }
             }
             CentreObject.SetBitmapManaged(ref NewBitmap);
