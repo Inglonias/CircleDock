@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Resources;
 using System.Windows.Forms;
 using BaseDockObjects;
-
+using Gma.System.MouseKeyHook;
 
 namespace CircleDock
 {
@@ -31,6 +31,8 @@ namespace CircleDock
 
         private Boolean isShown = true;
 
+        private IKeyboardMouseEvents mouseHook;
+
         #endregion
 
         #region Constructor and Initialization
@@ -45,8 +47,28 @@ namespace CircleDock
             MainDockObjects = new ArrayList();
 
             InitializeBackgroundObject();
+            InitializeMouseHook();
             InitializeCentreObject();
             ShowLevel("0-");
+        }
+
+        private void InitializeMouseHook()
+        {
+            mouseHook = Hook.GlobalEvents();
+            mouseHook.MouseClick += DoTheThing;
+        }
+
+        private void DoTheThing(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                Size backgroundSize = BackgroundObject.Size;
+                BackgroundObject.Location = new Point(e.Location.X - backgroundSize.Width / 2, e.Location.Y - backgroundSize.Height / 2);
+                Size centerSize = CentreObject.Size;
+                CentreObject.Location = new Point(e.Location.X - centerSize.Width / 2, e.Location.Y - centerSize.Height / 2);
+                CalculatedPoints = CalculateDockItemPositions(NewDockItemSizes);
+                SetDockItemPositions(CalculatedPoints);
+            }
         }
 
         public void InitializeBackgroundObject()
@@ -465,6 +487,7 @@ namespace CircleDock
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            mouseHook.Dispose();
             this.Close();
         }
 
@@ -504,6 +527,7 @@ namespace CircleDock
             switch (ActionCommand)
             {
                 case "QUIT":
+                    mouseHook.Dispose();
                     this.Close();
                     break;
             }               
