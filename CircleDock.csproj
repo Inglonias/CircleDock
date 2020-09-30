@@ -55,6 +55,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ImageResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\MainForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainForm.resx</DependentUpon>
+    </Compile>
     <Compile Include="src\DockItemSettingsLoader.cs" />
     <Compile Include="src\DockItemsInformation.cs" />
     <Compile Include="src\FileOps.cs" />
@@ -83,6 +88,11 @@
       <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\MainForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\TransparentObject.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -98,4 +108,17 @@
     <None Include="Images\sapphire_ring.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <_CopyItems Include="$(ProjectDir)Config\**\*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainFormTrayIcon.Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CircleDockIcon.ico" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <MakeDir Directories="$(TargetDir)\System" />
+    <Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(TargetDir)\System\%(RecursiveDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+  </Target>
 </Project>

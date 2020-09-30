@@ -54,7 +54,7 @@
             // MainFormTrayIcon
             // 
             this.MainFormTrayIcon.ContextMenuStrip = this.MainFormContextMenuStrip;
-            this.MainFormTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("MainFormTrayIcon.Icon")));
+            this.MainFormTrayIcon.Icon = ((System.Drawing.Icon)(CircleDock.Properties.MainForm.CircleDockIcon));
             this.MainFormTrayIcon.Text = LanguageWords.General.CircleDockName;
             this.MainFormTrayIcon.Visible = true;
             // 
