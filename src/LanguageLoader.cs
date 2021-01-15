@@ -83,6 +83,7 @@ namespace LanguageLoader
             MainContextMenu.AddWord = GetEntry("MainContextMenu", "AddWord");
             MainContextMenu.DockFolder = GetEntry("MainContextMenu", "DockFolder");
             MainContextMenu.ChangeIcon = GetEntry("MainContextMenu", "ChangeIcon");
+            MainContextMenu.ChangeTarget = GetEntry("MainContextMenu", "ChangeTarget");
         }
 
         private void LoadSettingsPanel()

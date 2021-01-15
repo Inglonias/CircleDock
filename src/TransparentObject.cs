@@ -293,7 +293,9 @@ namespace BaseDockObjects
         private ToolStripMenuItem addToolStripMenuItem;
         private ToolStripMenuItem dockFolderToolStripMenuItem;
         private ToolStripMenuItem changeIconToolStripMenuItem;
+        private ToolStripMenuItem changeTargetToolStripMenuItem;
         private OpenFileDialog ChangeIconDialog;
+        private OpenFileDialog ChangeTargetDialog;
 
         private void InitializeComponent()
         {
@@ -304,14 +306,20 @@ namespace BaseDockObjects
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dockFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeTargetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeIconDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ChangeTargetDialog = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem, this.changeIconToolStripMenuItem, this.removeToolStripMenuItem, this.quitToolStripMenuItem});
+                this.addToolStripMenuItem,
+                this.changeIconToolStripMenuItem,
+                this.changeTargetToolStripMenuItem,
+                this.removeToolStripMenuItem,
+                this.quitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.Size = new System.Drawing.Size(153, 48);
             // 
@@ -328,6 +336,13 @@ namespace BaseDockObjects
             this.changeIconToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.changeIconToolStripMenuItem.Text = Language.MainContextMenu.ChangeIcon;
             this.changeIconToolStripMenuItem.Click += new System.EventHandler(this.changeIconToolStripMenuItem_Click);
+            // 
+            // changeTargetStripMenuItem
+            // 
+            this.changeTargetToolStripMenuItem.Name = "changeTargetToolStripMenuItem";
+            this.changeTargetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.changeTargetToolStripMenuItem.Text = Language.MainContextMenu.ChangeTarget;
+            this.changeTargetToolStripMenuItem.Click += new System.EventHandler(this.ChangeTargetToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
@@ -351,11 +366,17 @@ namespace BaseDockObjects
             this.dockFolderToolStripMenuItem.Text = Language.MainContextMenu.DockFolder;
             this.dockFolderToolStripMenuItem.Click += new System.EventHandler(this.dockFolderToolStripMenuItem_Click);
             // 
-            // OpenDataPointsDialog
+            // ChangeIconDialog
             // 
             this.ChangeIconDialog.FileName = "Change Icon";
             this.ChangeIconDialog.Filter = "PNG|*.png";
             this.ChangeIconDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.ChangeIconDialog_FileOk);
+            //
+            // ChangeTargetDialog
+            //
+            this.ChangeTargetDialog.FileName = "Args";
+            this.ChangeIconDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.ChangeTargetDialog_FileOk);
+
             // 
             // TransparentObject
             // 
@@ -579,6 +600,14 @@ namespace BaseDockObjects
             ChangeIconDialog.ShowDialog();
         }
 
+        private void ChangeTargetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeIconDialog.Multiselect = false;
+            ChangeIconDialog.InitialDirectory = Application.StartupPath + @"\System\Icons\";
+            ChangeIconDialog.ShowDialog();
+        }
+
+
         private void ChangeIconDialog_FileOk(object sender, CancelEventArgs e)
         {
             String NewImagePath;
@@ -606,6 +635,15 @@ namespace BaseDockObjects
             SetBitmap();
             Size ObjectSize = this.ObjectSize;
             DrawBitmapManaged(ObjectSize.Width, ObjectSize.Height, false, 0, 0, false, 0, 0, 0, 0, false, 0);       
+        }
+
+        private void ChangeTargetDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            String NewTargetPath = ChangeIconDialog.FileName;
+            if (DockItemSectionName != null && DockItemSectionName != "")
+            {
+                DockItemSettings.SetEntry(DockItemSectionName, "Args", NewTargetPath);
+            }
         }
 
         private void dockFolderToolStripMenuItem_Click(object sender, EventArgs e)

@@ -33,6 +33,7 @@ namespace LanguageInformation
         public String AddWord;
         public String DockFolder;
         public String ChangeIcon;
+        public String ChangeTarget;
     }
 
     public struct SettingsPanel
